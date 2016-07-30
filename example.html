@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>promise example</title>
+	<script type="text/javascript" src="promise.js"></script>
+</head>
+<body>
+	<button class="test">start promise test</button>
+	<div class="log"></div>
+	<script type="text/javascript">
+		var testBtn = document.getElementsByClassName('test')[0];
+
+		function testPromise() {
+			console.log('test start');
+			var p1 = new Promise(function (resolve, reject) {
+				console.log('promise start');
+				setTimeout(function () {
+					resolve('hello');
+					console.log('p1 resolved');
+				}, 5000);
+			});
+			var p2 = p1.then(function (value) {
+				console.log(value);
+				console.log('p2 resolved');
+				return value + ' world';
+			});
+			p2.done(function (value) {
+				console.log(value);
+				console.log('asyc done');
+			});
+			console.log('syc done');
+		}
+		
+		testBtn.addEventListener('click', testPromise);
+	</script>
+</body>
+</html>
