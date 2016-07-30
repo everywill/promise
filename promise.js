@@ -9,7 +9,7 @@
 	} else {
 		this[name] = definition();
 	}
-})('promise', function () {
+})('Promise', function () {
 	var PENDING = 0;
 	var FULFILLED = 1;
 	var REJECTED = 2;
@@ -37,6 +37,17 @@
 			value = error;
 			forEach(handlers, handle);
 			handlers = [];
+		}
+
+		function getThen(value) {
+			var t = typeof value;
+			if (value && t === 'object') {
+				var then = value.then;
+				if (typeof then === 'function') {
+					return then;
+				}
+			}
+			return null;
 		}
 
 		function resolve(result) {
