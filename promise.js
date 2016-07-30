@@ -1,4 +1,15 @@
-define([], function () {
+(function (name, definition) {
+	var hasDefine = typeof define === 'function';
+	var hasExports = typeof module !== 'undefined' && module.exports;
+
+	if (hasDefine) {
+		define(definition);
+	} else if (hasExports) {
+		module.exports = definition();
+	} else {
+		this[name] = definition();
+	}
+})('promise', function () {
 	var PENDING = 0;
 	var FULFILLED = 1;
 	var REJECTED = 2;
